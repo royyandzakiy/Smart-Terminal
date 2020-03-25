@@ -72,6 +72,16 @@ void loop(){
               Serial.println("GPIO 4 off");
               output4State = "off";
               digitalWrite(output4, LOW);
+            } else if (header.indexOf("GET /4/reboot") >= 0) {
+              Serial.println("GPIO 4 off");
+              output4State = "off";
+              digitalWrite(output4, LOW);
+
+              delay(3000);
+
+              Serial.println("GPIO 4 on");
+              output4State = "on";
+              digitalWrite(output4, HIGH);
             }
             
             // Display the HTML web page
@@ -93,7 +103,7 @@ void loop(){
             // If the output4State is off, it displays the ON button       
             if (output4State=="on") {
               client.println("<p><a href=\"/4/off\"><button class=\"button button2\">ON</button></a></p>");
-            } else {
+            } else if (output4State=="off") {
               client.println("<p><a href=\"/4/on\"><button class=\"button\">OFF</button></a></p>");
             } 
 
